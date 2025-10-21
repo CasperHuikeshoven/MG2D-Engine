@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,16 +9,16 @@ namespace Engine
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static GameStateManager GameStateManager{get; set;}
+        public static GameStateManager GameStateManager { get; set; }
 
-        public static AssetManager AssetManager{get; set;}
+        public static AssetManager AssetManager { get; set; }
 
-        private InputHelper inputHelper; 
+        private InputHelper inputHelper;
 
-        public static Random Random{get; set;}
+        public static Random Random { get; set; }
 
-        protected static Point WorldSize {get; set;}
-        protected static Point WindowSize {get; set;}
+        protected static Point WorldSize { get; set; }
+        protected static Point WindowSize { get; set; }
         Matrix spriteScale;
 
         public ExtendedGame()
@@ -53,7 +52,7 @@ namespace Engine
         {
             inputHelper.Update(gameTime);
             HandleInput(inputHelper);
-            
+
             GameStateManager.Update(gameTime);
         }
 
@@ -62,7 +61,7 @@ namespace Engine
             GameStateManager.HandleInput(inputHelper);
 
             // Change screen to fullscreen or unfullscreen by pressing f5
-            if(inputHelper.KeyPressed(Keys.F5))
+            if (inputHelper.KeyPressed(Keys.F5))
                 ChangeScreen(!IsFullScreen);
         }
 
@@ -71,7 +70,7 @@ namespace Engine
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, spriteScale);
-            
+
             GameStateManager.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
@@ -98,11 +97,11 @@ namespace Engine
 
             Point screenSize;
 
-            if(!IsFullScreen)
+            if (!IsFullScreen)
             {
                 screenSize.X = WindowSize.X;
-                screenSize.Y = WindowSize.Y; 
-            } 
+                screenSize.Y = WindowSize.Y;
+            }
             else
             {
                 screenSize = new Point(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
@@ -150,7 +149,7 @@ namespace Engine
         public Vector2 ScreenToWorld(Vector2 screenPosition)
         {
             Vector2 viewportTopLeft = new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y);
-            float screenToWorld = WorldSize.X / (float) GraphicsDevice.Viewport.Width;
+            float screenToWorld = WorldSize.X / (float)GraphicsDevice.Viewport.Width;
             return (screenPosition - viewportTopLeft) * screenToWorld;
         }
     }
