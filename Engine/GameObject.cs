@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,21 +6,21 @@ namespace Engine
     public class GameObject
     {
 
-        public GameObject Parent{get; set;}
-        public Vector2 LocalPosition{get{return localPosition;} set{localPosition = value;}}
+        public GameObject? Parent { get; set; }
+        public Vector2 LocalPosition { get { return localPosition; } set { localPosition = value; } }
         protected Vector2 localPosition;
         public Vector2 GlobalPosition
         {
             get
             {
-                if(Parent != null)
+                if (Parent != null)
                 {
-                    return Parent.LocalPosition + this.LocalPosition;
+                    return Parent.GlobalPosition + LocalPosition;
                 }
-                return this.LocalPosition;
+                return LocalPosition;
             }
         }
-        public Vector2 Velocity{get{return velocity;}}
+        public Vector2 Velocity { get { return velocity; } }
         protected Vector2 velocity;
 
         public GameObject()
@@ -41,7 +40,7 @@ namespace Engine
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
+
         }
     }
 }

@@ -10,4 +10,9 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Content\Aseprite\" />
+    <Folder Include="Content\UI\" />
+  </ItemGroup>
+
 </Project>

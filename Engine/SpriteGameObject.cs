@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,14 +5,15 @@ namespace Engine
 {
     public class SpriteGameObject : GameObject
     {
-        protected Texture2D Sprite{get; set;} 
+        protected Texture2D Sprite { get; set; }
+        public Color Color { get; set; } = Color.White;
 
-        protected int SheetIndex{get; set;}
-        
-        public float Depth{get; set;}
+        public int SheetIndex { get; set; }
 
-        public int Width{get; set;}
-        public int Height{get; set;}
+        public float Depth { get; set; }
+
+        public int Width { get; set; }
+        public int Height { get; set; }
         int rows;
         int columns;
 
@@ -24,10 +24,10 @@ namespace Engine
             SheetIndex = sheetIndex;
 
             string[] nameSplit = spriteName.Split('@');
-            if(nameSplit.Length > 1)
+            if (nameSplit.Length > 1)
             {
                 nameSplit = nameSplit[1].Split('x');
-                if(nameSplit.Length == 1)
+                if (nameSplit.Length == 1)
                     rows = 1;
                 else
                     rows = int.Parse(nameSplit[1]);
@@ -47,7 +47,7 @@ namespace Engine
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Sprite, GlobalPosition, DrawBox, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, Depth);
+            spriteBatch.Draw(Sprite, GlobalPosition, DrawBox, Color, 0, Vector2.Zero, 1f, SpriteEffects.None, Depth);
         }
 
         public Rectangle BoundingBox
@@ -55,12 +55,12 @@ namespace Engine
             get
             {
                 Rectangle bbox = new Rectangle();
-                
+
                 bbox.Width = Width;
                 bbox.Height = Height;
 
-                bbox.X = (int) LocalPosition.X;
-                bbox.Y = (int) LocalPosition.Y;
+                bbox.X = (int)GlobalPosition.X;
+                bbox.Y = (int)GlobalPosition.Y;
 
                 return bbox;
             }
@@ -71,8 +71,8 @@ namespace Engine
             get
             {
                 Rectangle dbox = BoundingBox;
-                
-                if(SheetIndex > 0 && SheetIndex < columns * rows)
+
+                if (SheetIndex > 0 && SheetIndex < columns * rows)
                 {
                     dbox.X = (SheetIndex % columns) * Width;
                     dbox.Y = (SheetIndex / columns) * Height;
